@@ -1,0 +1,124 @@
+Here’s a ready-to-paste package: one highlight slide, one-page elevator pitch, and a crisp takeaway.
+
+⸻
+
+Highlight Slide
+
+Automated Change Management: Stop Creating Records, Start Orchestrating Work
+
+Core message
+
+Our current approach automates paperwork from outside the platform. The better solution is to let ServiceNow orchestrate the change process: correct model, correct CI, correct approvals, correct tasks, correct evidence, and correct record linking.
+
+⸻
+
+From a “standard change API” to a ServiceNow-native change control plane
+
+Today	Proposed
+Off-platform teams push data through a painful API	Teams start from catalog, API, event, alert, or CMDB signal
+“Standard change” is used to avoid approvals	Change type is selected by risk, repeatability, source, CI, and impact
+14+ handoffs to create/update/close records	One platform flow creates the right parent, child tasks, approvals, links, and evidence
+CI matching is fragile	ITOM/CMDB context drives CI selection and impacted service awareness
+Giant standard changes cover thousands of servers	Parent change contains scoped child tasks by wave, service, CI group, or team
+Incidents, alerts, and changes are rarely linked	Event → alert → incident → caused by change → resolved by change becomes traceable
+
+ServiceNow Change Management supports the ITIL-style change types of standard, emergency, and normal, and standard changes are defined as pre-authorized, low-risk, common, and procedure-driven. That supports your argument that an open-ended “standard change” is usually not standard at all.  ￼
+
+⸻
+
+Proposed model
+
+1. Intake
+
+Catalog request, off-platform automation, release pipeline, event, alert, incident, or CMDB update.
+
+2. Change Model Router
+
+Route to the right model:
+
+Normal
+Variable work requiring risk evaluation, approval, scheduling, and evidence.
+
+Standard
+Pre-approved, repeatable, low-risk, locked procedure.
+
+Emergency
+Break/fix or urgent risk response, often event or incident driven.
+
+Unauthorized
+Detected change activity without an approved matching change.
+
+FYI / Alert Only
+Low-risk informational signals that do not deserve a change record.
+
+3. Platform Orchestration
+
+ServiceNow handles:
+
+* CI identification and impacted service context.
+* Change approval policies.
+* Parent change and child task creation.
+* Implementation, validation, backout, and evidence tasks.
+* Event, alert, incident, problem, and change linking.
+* Change “credit score” / historical risk adjustment.
+* Automated closure when all required tasks and evidence are complete.
+
+ServiceNow change approval policies can evaluate inputs and apply approval definitions based on business requirements, which is exactly the mechanism needed for automated scrutiny instead of one-size-fits-all approval avoidance.  ￼
+
+⸻
+
+Four use cases the API-first solutions miss
+
+Use case	Correct platform behavior
+1. Normal change from catalog request Example: resource upgrade	Catalog request creates the fulfillment path, evaluates CI/service/risk, generates a normal change when needed, applies approval policy, creates implementation and validation tasks, and closes the request through proof of work.
+2. Standard change from on/off-platform source Example: patching or release	Automation selects an approved standard model/template, locks the procedure and scope rules, creates wave/task-level execution records, and avoids one massive “50k server” change.
+3. Emergency change from event data Example: urgent remediation from monitoring	ITOM event/alert context identifies the CI, links to incident if applicable, creates emergency change for urgent action, and preserves retrospective review and evidence. ServiceNow Event Management collects events, creates alerts, and supports acting on those alerts to maintain system health.  ￼
+4. Unauthorized change from CMDB/event signal Example: CI field changes with no approved change	Event or CMDB activity detects unplanned change, creates or flags an unauthorized change, links it to the CI and related records, and drives review/remediation. ServiceNow documents unauthorized change handling for detected CI activity, including creation of an emergency unauthorized change request for the relevant CI in that integration path.  ￼
+
+⸻
+
+Slide footer / punchline
+
+The API should not replace ITSM. It should feed the ITSM engine.
+
+⸻
+
+One-Page Elevator Pitch
+
+Automating Change the Right Way
+
+The problem is not that our teams need a better way to create change records. The problem is that we are trying to automate complex ITSM processes from outside the platform, then wondering why the records are incomplete, the CI is wrong, the approval path is awkward, and the audit trail does not tell the real story.
+
+Today’s internally built “standard change API” moves teams through a painful workflow, but it still treats change as a form-submission problem. That is why it requires so many interactions between off-platform and on-platform teams. It also reinforces the wrong behavior: using “standard change” as an approval bypass instead of using it for truly pre-approved, low-risk, repeatable work.
+
+The better approach is to make ServiceNow the change orchestration layer.
+
+That means we stop asking every team to script its own version of ITSM. Instead, we define a small number of high-quality change models and let the platform route work through the right path. Teams should not have to understand every record, field, state, approval rule, CI relationship, and evidence requirement. They should perform the task in front of them, while the platform wraps the correct ITSM process around that work.
+
+This is the “sandwich shop” model. We do not ask every customer to design the kitchen, pick the station sequence, train the staff, and build the receipt system. We define a menu, standardize the preparation process, and let each station do its part. In ITSM terms, the “menu” is our set of approved change models: normal resource upgrades, standard patching, standard releases, emergency remediation, unauthorized change review, FYI-only notifications, and alert-only cases. The platform routes each order through the right stations.
+
+This gives us a better operating model:
+
+Normal changes should come from variable work, such as a catalog request for a resource upgrade. The catalog item should gather the business need, identify the CI or service, assess impact and risk, apply the right approval policy, and create tasks for implementation, validation, and closure.
+
+Standard changes should be reserved for work that is truly repeatable and pre-approved. Patching and release activity can still be automated, but the standard model should define the procedure, scope, evidence, timing, and CI selection rules. Instead of one massive change containing tens of thousands of servers for a week, we should use parent changes with child tasks by wave, CI group, service, application, or team. ServiceNow change tasks are designed as pieces of work related to a change request, such as planning, implementation, testing, and review.  ￼
+
+Emergency changes should be created when event, alert, or incident data shows urgent risk or active service impact. This lets us connect event → alert → incident → emergency change → resolution evidence. It also gives us a real post-implementation review path instead of pretending urgent work was just another standard change.
+
+Unauthorized changes should be detected from event data, CMDB updates, or service mapping signals when configuration changes occur without an approved matching change. These should not disappear into noise. They should create reviewable records tied to the CI, team, incident, and remediation path.
+
+The biggest value is not simply fewer clicks. The value is that we can finally compare work across teams, identify where processes fail, measure change quality, and prove what happened. We can see which models are safe, which teams execute cleanly, which CIs are risky, which approvals add value, and which changes cause incidents.
+
+This also opens the door for a change “credit score.” Teams, models, CIs, and automation paths can earn lighter scrutiny when they consistently succeed, attach evidence, avoid incidents, and follow the model. Riskier patterns can receive more review automatically. This is not about blocking teams; it is about putting friction where risk actually exists.
+
+The future state is simple: teams initiate work from the place that makes sense — catalog, release pipeline, monitoring event, incident, or CMDB signal — and ServiceNow handles the ITSM mechanics. The platform chooses the right model, applies approval policy, creates the right tasks, links the right records, captures the right evidence, and closes the parent when the work is complete.
+
+Takeaway
+
+We should not build another off-platform API that tries to imitate change management. We should use ServiceNow to run change management.
+
+The winning solution is a ServiceNow-native change orchestration model: small set of standardized change models, event-driven CI context, policy-based approvals, task-level execution, proper incident/change linking, and measurable change quality.
+
+One-sentence version
+
+Automated change should not mean “create a standard change faster”; it should mean “route every change through the right ServiceNow model with the right CI, approvals, tasks, evidence, and links.”
